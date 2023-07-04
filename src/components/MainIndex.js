@@ -4,7 +4,6 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { styled } from '@mui/system';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { InfoOutlined } from '@mui/icons-material';
 import Image from '../media/img/temp.jpg';
 import Image1 from '../media/img/ProjectTemp1.jpg';
 import Image2 from '../media/img/ProjectTemp2.jpg';
@@ -16,24 +15,46 @@ const projects = [
     image: Image1,
     title: 'Project Medieval',
     description:
-      'This is a short description of my bachelor that i did called Project Medieval. It is a game that is based on the medieval times. Multiplayer using Unity and C#.',
+      'This is a short description of my bachelor that I did called Project Medieval. It is a game that is based on the medieval times. Multiplayer using Unity and C#.',
+    path: '/project-medieval',
   },
   {
     image: Image2,
     title: 'Project 2',
     description: 'This is a brief description about Project 2...',
+    path: '/project-2',
   },
   {
     image: Image3,
     title: 'Project 3',
     description: 'This is a brief description about Project 3...',
+    path: '/project-3',
   },
   {
     image: Image4,
-    title: 'Project 4',
-    description: 'This is a brief description about Project 4...',
+    title: 'Project 5',
+    description: 'This is a brief description about Project 5...',
+    path: '/project-5',
   },
-  // add more projects as needed
+  {
+    image: Image4,
+    title: 'Project 6',
+    description: 'This is a brief description about Project 6...',
+    path: '/project-6',
+  },
+  {
+    image: Image4,
+    title: 'Project 7',
+    description: 'This is a brief description about Project 7...',
+    path: '/project-7',
+  },
+  {
+    image: Image4,
+    title: 'Project 8',
+    description: 'This is a brief description about Project 8...',
+    path: '/project-8',
+  },
+  // Add more projects as needed
 ];
 
 const skills = [
@@ -44,7 +65,7 @@ const skills = [
   },
   {
     name: 'HTML/CSS',
-    level: 2,
+    level: 9,
     description: 'Been using HTML and CSS throughout my education.',
   },
   {
@@ -122,8 +143,8 @@ function MainIndex() {
   const isMobile = useMediaQuery('(max-width:600px)');
 
   return (
-    <Box px={3}>
-      <Box mt={5} textAlign="center">
+    <Box px={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+      <Box mt={5} sx={{ textAlign: 'center' }}>
         <Typography variant="h4">Hello, I'm [Your Name]</Typography>
         <Typography variant="h6">I'm a Full Stack Developer passionate about creating interactive experiences on the web.</Typography>
         <Box my={3}>
@@ -131,25 +152,44 @@ function MainIndex() {
         </Box>
       </Box>
 
-      <Box my={5} style={{ height: '100%' }}>
+      <Box my={5} style={{ height: '100%', width: isMobile ? '100%' : '50%' }}>
         {isMobile ? (
-          <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
+          <Carousel showIndicators={false} showThumbs={false} autoPlay infiniteLoop showStatus={false}>
             {projects.map((project) => (
-              <Box key={project.title} style={{ height: '100%' }}>
-                <Typography variant="h4">{project.title}</Typography>
-                <img src={project.image} alt={project.title} style={{ width: '100%', height: '65%', objectFit: 'cover' }} />
-                <Typography variant="body1">{project.description}</Typography>
-              </Box>
+              <a key={project.title} href={project.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Box style={{ height: '100%' }}>
+                  <Typography variant="h4">{project.title}</Typography>
+                  <img src={project.image} alt={project.title} style={{ width: '100%', height: '75%', objectFit: 'cover' }} />
+                  <Typography variant="body1">{project.description}</Typography>
+                </Box>
+              </a>
             ))}
           </Carousel>
         ) : (
-          <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false} showArrows={true} centerMode centerSlidePercentage={25}>
+          <Carousel showIndicators={false} showThumbs={false} autoPlay infiniteLoop showStatus={false} showArrows={true} centerMode centerSlidePercentage={25}>
             {projects.map((project) => (
-              <Box key={project.title} style={{ height: '100%' }}>
-                <Typography variant="h4">{project.title}</Typography>
-                <img src={project.image} alt={project.title} style={{ width: '75%', height: '50%', objectFit: 'cover' }} />
-                <Typography variant="body1">{project.description}</Typography>
-              </Box>
+              <a key={project.title} href={project.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <Typography variant="h4" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {project.title}
+                  </Typography>
+                  <Box
+                    sx={{
+                      overflow: 'hidden',
+                      height: '150px',
+                      width: '250px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img src={project.image} alt={project.title} sx={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'cover' }} />
+                  </Box>
+                  <Typography variant="body1" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', lineClamp: '2' }}>
+                    {project.description}
+                  </Typography>
+                </Box>
+              </a>
             ))}
           </Carousel>
         )}
