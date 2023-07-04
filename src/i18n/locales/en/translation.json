@@ -1,0 +1,11 @@
+{
+  "MainIndex": {
+    "Title": "Hello, I'm André Lie.",
+    "ShortIntro": "This is my portfolio website, which is under active development as i improve my knowledge related to web developing. My goal is to create a websitethat showcases my skills and projects, and a platform where I can create and share my ideas. I'm not a very formal person, and i like to keep thingssimple. Feel free to explore my website, and if you have any questions, don't hesitate to contact me."
+  },
+  "navigation": {
+    "About": "About",
+    "Projects": "Projects",
+    "Contact": "Contact"
+  }
+}

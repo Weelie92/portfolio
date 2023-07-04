@@ -6,11 +6,8 @@ import 'react-multi-carousel/lib/styles.css';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import IconButton from '@mui/material/IconButton';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import Image from '../media/img/temp.jpg';
-import Image1 from '../media/img/ProjectTemp1.jpg';
-import Image2 from '../media/img/ProjectTemp2.jpg';
-import Image3 from '../media/img/ProjectTemp3.jpg';
-import Image4 from '../media/img/ProjectTemp4.jpg';
+import profileImage from '../media/img/Profilbilde.png';
+import { useTranslation } from 'react-i18next';
 
 const responsive = {
   superLargeDesktop: {
@@ -33,53 +30,6 @@ const responsive = {
   },
 };
 
-const projects = [
-  {
-    image: Image1,
-    title: 'Project Medieval',
-    description:
-      'This is a short description of my bachelor that I did called Project Medieval. It is a game that is based on the medieval times. Multiplayer using Unity and C#.',
-    path: '/project-medieval',
-  },
-  {
-    image: Image2,
-    title: 'Project 2',
-    description: 'This is a brief description about Project 2...',
-    path: '/project-2',
-  },
-  {
-    image: Image3,
-    title: 'Project 3',
-    description: 'This is a brief description about Project 3...',
-    path: '/project-3',
-  },
-  {
-    image: Image4,
-    title: 'Project 5',
-    description: 'This is a brief description about Project 5...',
-    path: '/project-5',
-  },
-  {
-    image: Image4,
-    title: 'Project 6',
-    description: 'This is a brief description about Project 6...',
-    path: '/project-6',
-  },
-  {
-    image: Image4,
-    title: 'Project 7',
-    description: 'This is a brief description about Project 7...',
-    path: '/project-7',
-  },
-  {
-    image: Image4,
-    title: 'Project 8',
-    description: 'This is a brief description about Project 8...',
-    path: '/project-8',
-  },
-  // Add more projects as needed
-];
-
 const skills = [
   {
     name: 'JavaScript',
@@ -97,7 +47,7 @@ const skills = [
     description: 'Fairly new to React, but have been using it in both front-end and back-end development.',
   },
   {
-    name: 'Use of AI/Prompt Engineering',
+    name: 'AI/Prompt Engineering',
     level: 90,
     description: 'Been using AI like ChatGPT since it came out to teach myself new skills, especially for programming. ',
   },
@@ -150,7 +100,7 @@ function SkillItem({ name, level, description }) {
         </Typography>
         <ClickAwayListener onClickAway={handleClickAway}>
           <Tooltip open={open} title={description} placement="top" arrow interactive>
-            <IconButton onClick={handleClick} size="small" style={{ opacity: 0.7 }}>
+            <IconButton onClick={handleClick} size="medium" style={{ opacity: 0.7 }}>
               <InfoOutlinedIcon fontSize="inherit" />
             </IconButton>
           </Tooltip>
@@ -161,25 +111,28 @@ function SkillItem({ name, level, description }) {
   );
 }
 
-function MainIndex() {
+function MainIndex({ projects }) {
   const isMobile = useMediaQuery('(max-width:1000px)');
+  const { t } = useTranslation();
 
   return (
     <Box px={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
       {/* Introduction */}
-      <Box mt={5} sx={{ textAlign: 'center' }}>
-        <Typography variant="h4">Hello, I'm [Your Name]</Typography>
-        <Typography variant="h6">I'm a Full Stack Developer passionate about creating interactive experiences on the web.</Typography>
-        <Box my={3}>
-          <img src={Image} alt="Image of André Lie" style={{ borderRadius: '50%', height: '200px', width: '200px' }} />
+      <Box mt={5} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '24px', maxWidth: '600px', textAlign: 'center' }}>
+        <Typography variant="h4">{t('MainIndex.Title')}</Typography>
+        <Box sx={{ width: '300px', overflow: 'hidden' }}>
+          <img src={profileImage} alt="Profile" style={{ borderRadius: '20%', width: '100%', objectFit: 'cover', transform: 'scale(1.2)' }} />
         </Box>
+        <Typography variant="body1" paragraph>
+          {t('MainIndex.ShortIntro')}
+        </Typography>
       </Box>
 
       {/* Projects Carousel */}
       <Box my={5} style={{ height: '100%', width: isMobile ? '100%' : '75%' }}>
         <Carousel responsive={responsive} draggable={false} autoPlay={true} autoPlaySpeed={5000} pauseOnHover={true} infinite={true}>
           {projects.map((project) => (
-            <a key={project.title} href={project.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <a key={project.title} href={`/projects/${project.path}`} style={{ textDecoration: 'none', color: 'inherit' }}>
               <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 {/* Title */}
                 <Typography variant="h4" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -11,22 +12,18 @@ import {
   useMediaQuery,
   Box,
   Switch,
+  FormControlLabel,
   Typography,
   CssBaseline,
   Button,
   Avatar,
   Fade,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { Menu as MenuIcon, Home as HomeIcon } from '@mui/icons-material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useTheme } from '@mui/material/styles';
-
-const menuItems = [
-  { label: 'About', path: '/about' },
-  { label: 'Projects', path: '/projects' },
-  { label: 'Contact', path: '/contact' },
-];
 
 export default function Navbar({ isDarkMode, toggleTheme }) {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -34,6 +31,14 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
   const [scrollingUp, setScrollingUp] = useState(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const { t, i18n } = useTranslation();
+
+  const menuItems = [
+    { label: t('navigation.About'), path: '/about' },
+    { label: t('navigation.Projects'), path: '/projects' },
+    { label: t('navigation.Contact'), path: '/contact' },
+  ];
 
   const handleScroll = () => {
     const currentScroll = window.pageYOffset;
@@ -45,6 +50,13 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScroll]);
+
+  // Function to change language
+  const changeLanguage = (event) => {
+    i18n.changeLanguage(event.target.checked ? 'no' : 'en');
+  };
+
+  // In your JSX
 
   return (
     <>
@@ -79,7 +91,7 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
                   <List>
                     {menuItems.map((item, index) => (
                       <Fade in={openDrawer} timeout={500 + index * 100} key={item.label}>
-                        <ListItem button component="a" href={item.path}>
+                        <ListItem button component={Link} to={item.path}>
                           <ListItemText primaryTypographyProps={{ variant: 'h5' }} primary={item.label} />
                         </ListItem>
                       </Fade>
@@ -90,6 +102,10 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
                 <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
                   <Typography variant="body2">{isDarkMode ? 'Dark Mode' : 'Light Mode'}</Typography>
                   <Switch checked={isDarkMode} onChange={toggleTheme} />
+                  <FormControlLabel
+                    control={<Switch checked={i18n.language === 'no'} onChange={changeLanguage} name="languageSwitch" />}
+                    label={i18n.language === 'no' ? '🇳🇴' : '🇬🇧'}
+                  />
                   <Box display="flex" mt={2}>
                     <IconButton href="https://www.linkedin.com/in/andrelie" target="_blank" style={{ marginRight: '10px' }}>
                       <LinkedInIcon />
@@ -105,7 +121,11 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
             {!isMobile && (
               <Box display="flex" gap={2}>
                 {menuItems.map((item) => (
-                  <Box key={item.label}>{item.label}</Box>
+                  <Box key={item.label} sx={{ textDecoration: 'none' }}>
+                    <Link to={item.path} style={{ color: 'inherit', textDecoration: 'none' }}>
+                      {item.label}
+                    </Link>
+                  </Box>
                 ))}
               </Box>
             )}
@@ -116,6 +136,12 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
               </IconButton>
             ) : (
               <IconButton edge="end" color="inherit" href="/">
+                <FormControlLabel
+                  control={<Switch checked={i18n.language === 'no'} onChange={changeLanguage} name="languageSwitch" />}
+                  label={i18n.language === 'no' ? '🇳🇴' : '🇬🇧'}
+                />
+                <Typography variant="body2">{isDarkMode ? 'Dark Mode' : 'Light Mode'}</Typography>
+                <Switch checked={isDarkMode} onChange={toggleTheme} />
                 <HomeIcon />
               </IconButton>
             )}

@@ -1,0 +1,11 @@
+{
+  "MainIndex": {
+    "Title": "Hallo, mitt navn er André Lie",
+    "ShortIntro": "Dette er min porteføljenettside som er under aktiv utvikling mens jeg forbedrer min kunnskap innen webutvikling. Målet mitt er å lage en nettside som viser frem mine ferdigheter og prosjekter, og som fungerer som en plattform hvor jeg kan skape og dele mine ideer. Jeg er ikke veldig formell av meg, og jeg liker å holde ting enkelt. Utforsk gjerne nettsiden min, og hvis du har noen spørsmål, nøl ikke med å ta kontakt med meg."
+  },
+  "navigation": {
+    "About": "Om meg",
+    "Projects": "Prosjekter",
+    "Contact": "Kontakt"
+  }
+}
