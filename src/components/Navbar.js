@@ -19,11 +19,49 @@ import {
   Avatar,
   Fade,
 } from '@mui/material';
+import { styled } from '@mui/system';
 import { useTranslation } from 'react-i18next';
 import { Menu as MenuIcon, Home as HomeIcon } from '@mui/icons-material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useTheme } from '@mui/material/styles';
+import Brightness3Icon from '@mui/icons-material/Brightness3';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+
+const ThemeSwitch = styled(Switch)(({ theme }) => ({
+  height: 34,
+  width: 62,
+  padding: 7,
+  marginLeft: 'auto', // Add this line
+  '& .MuiSwitch-switchBase': {
+    padding: 5,
+    '& .MuiSwitch-icon': {
+      '&:before': {
+        content: '""',
+        position: 'absolute',
+        left: 'calc(100% - 37px)', // Adjust the left position to align with the right side
+        display: 'block',
+        height: '100%',
+        backgroundColor: theme.palette.mode === 'dark' ? 'darkgrey' : 'yellow', // defines the color of the moon and sun
+      },
+    },
+    '&:hover .MuiSwitch-icon:before': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    '& .MuiSwitch-icon.Mui-checked': {
+      color: theme.palette.common.white,
+    },
+    '&:hover .MuiSwitch-icon.Mui-checked:before': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+  '& .MuiSwitch-track': {
+    borderRadius: 26 / 2,
+    width: 75,
+    backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#B53A2C',
+    opacity: 1,
+  },
+}));
 
 export default function Navbar({ isDarkMode, toggleTheme }) {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -35,9 +73,9 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
   const { t, i18n } = useTranslation();
 
   const menuItems = [
-    { label: t('navigation.About'), path: '/about' },
-    { label: t('navigation.Projects'), path: '/projects' },
-    { label: t('navigation.Contact'), path: '/contact' },
+    { label: t('Navigation.About'), path: '/about' },
+    { label: t('Navigation.Projects'), path: '/projects' },
+    { label: t('Navigation.Contact'), path: '/contact' },
   ];
 
   const handleScroll = () => {
@@ -100,12 +138,16 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
                 </Box>
 
                 <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
-                  <Typography variant="body2">{isDarkMode ? 'Dark Mode' : 'Light Mode'}</Typography>
-                  <Switch checked={isDarkMode} onChange={toggleTheme} />
-                  <FormControlLabel
-                    control={<Switch checked={i18n.language === 'no'} onChange={changeLanguage} name="languageSwitch" />}
-                    label={i18n.language === 'no' ? '🇳🇴' : '🇬🇧'}
-                  />
+                  <Box display="flex" flexDirection="column" alignItems="center" mb={1}>
+                    <Typography variant="body2">{i18n.language === 'no' ? '🇳🇴' : '🇬🇧'}</Typography>
+                    <Switch checked={i18n.language === 'no'} onChange={changeLanguage} name="languageSwitch" />
+                  </Box>
+
+                  <Box display="flex" flexDirection="column" alignItems="center">
+                    <Typography variant="body2">{isDarkMode ? t('Navigation.DarkLightMode.DarkMode') : t('Navigation.DarkLightMode.LightMode')}</Typography>
+                    <ThemeSwitch checked={!isDarkMode} onChange={toggleTheme} icon={<Brightness3Icon />} checkedIcon={<Brightness7Icon />} />
+                  </Box>
+
                   <Box display="flex" mt={2}>
                     <IconButton href="https://www.linkedin.com/in/andrelie" target="_blank" style={{ marginRight: '10px' }}>
                       <LinkedInIcon />
@@ -130,20 +172,30 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
               </Box>
             )}
             <Box flexGrow={1} />
+
             {isMobile ? (
               <IconButton edge="end" color="inherit" onClick={() => setOpenDrawer(!openDrawer)}>
                 <MenuIcon />
               </IconButton>
             ) : (
-              <IconButton edge="end" color="inherit" href="/">
-                <FormControlLabel
-                  control={<Switch checked={i18n.language === 'no'} onChange={changeLanguage} name="languageSwitch" />}
-                  label={i18n.language === 'no' ? '🇳🇴' : '🇬🇧'}
-                />
-                <Typography variant="body2">{isDarkMode ? 'Dark Mode' : 'Light Mode'}</Typography>
-                <Switch checked={isDarkMode} onChange={toggleTheme} />
-                <HomeIcon />
-              </IconButton>
+              <Box display="flex" flexDirection="row">
+                {/* Language Switch */}
+                <Box display="flex" flexDirection="row" alignItems="center">
+                  <Typography variant="body2">{i18n.language === 'no' ? '🇳🇴' : '🇬🇧'}</Typography>
+                  <Switch checked={i18n.language === 'no'} onChange={changeLanguage} name="languageSwitch" />
+                </Box>
+
+                {/* Theme Switch */}
+                <Box display="flex" flexDirection="row" alignItems="center">
+                  <Typography variant="body2">{isDarkMode ? t('Navigation.DarkLightMode.DarkMode') : t('Navigation.DarkLightMode.LightMode')}</Typography>
+                  <ThemeSwitch checked={!isDarkMode} onChange={toggleTheme} icon={<Brightness3Icon />} checkedIcon={<Brightness7Icon />} />
+                </Box>
+
+                {/* Home button */}
+                <Box component={IconButton} edge="end" color="inherit" href="/">
+                  <HomeIcon />
+                </Box>
+              </Box>
             )}
           </Toolbar>
         </AppBar>

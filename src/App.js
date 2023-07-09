@@ -1,7 +1,8 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
+import { React, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ProjectTemplate from './components/ProjectTemplate';
+import { useTranslation } from 'react-i18next';
+import ProjectTemplate from './components/templates/ProjectTemplate';
 import './i18n/i18n';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -10,10 +11,21 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import MainIndex from './components/MainIndex';
 import useDarkMode from './components/hooks/useDarkMode';
+
 import Image1 from './media/img/ProjectTemp1-min.jpg';
 import Image2 from './media/img/ProjectTemp2-min.jpg';
 import Image3 from './media/img/ProjectTemp3-min.jpg';
 import Image4 from './media/img/ProjectTemp4-min.jpg';
+import jsIcon from './media/img/js.png';
+import htmlIcon from './media/img/html.png';
+import cssIcon from './media/img/css.png';
+import reactIcon from './media/img/react.png';
+import aiIcon from './media/img/ai.png';
+import promptIcon from './media/img/prompt.png';
+import unityIcon from './media/img/unity.png';
+import CSharpIcon from './media/img/CSharp.png';
+
+/* Icons downloaded from https://www.flaticon.com/ */
 
 const lightTheme = createTheme({
   palette: {
@@ -23,6 +35,9 @@ const lightTheme = createTheme({
     },
     secondary: {
       main: '#dc004e',
+    },
+    highlight: {
+      main: '#333333',
     },
   },
   typography: {
@@ -63,6 +78,9 @@ const darkTheme = createTheme({
     secondary: {
       main: '#f48fb1',
     },
+    highlight: {
+      main: '#ffffff',
+    },
   },
   typography: {
     fontFamily: 'Arial, sans-serif',
@@ -97,65 +115,96 @@ const projects = [
   {
     image: Image1,
     title: 'Project Medieval',
-    description:
-      'This is a short description of my bachelor that I did called Project Medieval. It is a game that is based on the medieval times. Multiplayer using Unity and C#.',
     path: 'project-medieval',
   },
   {
     image: Image2,
     title: 'Project 2',
-    description: 'This is a brief description about Project 2...',
     path: 'project-2',
   },
   {
     image: Image3,
     title: 'Project 3',
-    description: 'This is a brief description about Project 3...',
     path: 'project-3',
   },
   {
     image: Image4,
     title: 'Project 5',
-    description: 'This is a brief description about Project 5...',
     path: 'project-5',
   },
   {
     image: Image4,
     title: 'Project 6',
-    description: 'This is a brief description about Project 6...',
     path: 'project-6',
   },
   {
     image: Image4,
     title: 'Project 7',
-    description: 'This is a brief description about Project 7...',
     path: 'project-7',
   },
   {
     image: Image4,
     title: 'Project 8',
-    description: 'This is a brief description about Project 8...',
     path: 'project-8',
   },
   // Add more projects as needed
 ];
 
-function ProjectDetails({ projects }) {
-  const { projectId } = useParams();
+const skills = [
+  {
+    name: 'JavaScript',
+    level: 4,
+    icons: [jsIcon],
+  },
+  {
+    name: 'HTML CSS',
+    level: 4,
+    icons: [htmlIcon, cssIcon],
+  },
 
-  const project = projects.find((project) => project.path === projectId);
+  {
+    name: 'React',
+    level: 3,
+    icons: [reactIcon],
+  },
+  {
+    name: 'AI Prompt',
+    level: 4,
+    icons: [aiIcon, promptIcon],
+  },
+  {
+    name: 'Unity',
+    level: 4,
+    icons: [unityIcon],
+  },
+  {
+    name: 'C#',
+    level: 3,
+    icons: [CSharpIcon],
+  },
 
-  if (!project) {
-    return <div>Project not found</div>;
-  }
-
-  return <ProjectTemplate project={project} />;
-}
+  // add more skills as needed
+];
 
 function App() {
   const [isDarkMode, toggleTheme] = useDarkMode();
+  const { i18n } = useTranslation();
 
   const theme = isDarkMode ? darkTheme : lightTheme;
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem('language');
+    if (storedLanguage) {
+      i18n.changeLanguage(storedLanguage);
+    } else {
+      const browserLanguage = navigator.language.split('-')[0];
+      i18n.changeLanguage(browserLanguage);
+    }
+  }, [i18n]);
+
+  useEffect(() => {
+    localStorage.setItem('language', i18n.language);
+  }, [i18n.language]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -165,8 +214,8 @@ function App() {
           <Route path="/about" element={<AboutMe />} />
           <Route path="/projects" element={<Projects projects={projects} />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/" element={<MainIndex projects={projects} />} />
-          <Route path="/projects/:projectId" element={<ProjectDetails projects={projects} />} />
+          <Route path="/" element={<MainIndex projects={projects} skills={skills} />} />
+          <Route path="/projects/:projectId" element={<ProjectTemplate projects={projects} />} />
         </Routes>
         <Footer />
       </Router>

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Box, Typography, Button, styled } from '@mui/material';
 
 const StyledBox = styled(Box)({
@@ -11,8 +13,16 @@ const StyledImage = styled('img')({
   height: 'auto',
 });
 
-function ProjectTemplate({ project }) {
-  const { title, description, image } = project;
+function ProjectTemplate({ projects }) {
+  const { projectId } = useParams();
+  const { t } = useTranslation();
+  const project = projects.find((project) => project.path === projectId);
+
+  if (!project) {
+    return <div>Project not found</div>;
+  }
+
+  const { title, image } = project;
 
   return (
     <StyledBox p={2}>
@@ -21,11 +31,11 @@ function ProjectTemplate({ project }) {
       </Typography>
       <StyledImage src={image} alt={title} />
       <Typography variant="body1" gutterBottom>
-        {description}
+        {t(`Projects.ProjectDescription.${project.path}`)}
       </Typography>
       <Box textAlign="center">
         <Button variant="outlined" href="/projects">
-          Back to Projects
+          {t('Projects.BackToProjects')}
         </Button>
       </Box>
     </StyledBox>

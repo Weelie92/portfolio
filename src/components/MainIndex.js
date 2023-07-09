@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { Box, Typography, Button, Grid, Chip, Tooltip, ClickAwayListener } from '@mui/material';
-import { styled } from '@mui/system';
+import React from 'react';
+import { Box, Typography, Button, Grid } from '@mui/material';
 import Carousel from 'react-multi-carousel';
+import SkillTemplate from './templates/SkillTemplate';
 import 'react-multi-carousel/lib/styles.css';
+import 'devicon/devicon.min.css';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import IconButton from '@mui/material/IconButton';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import profileImage from '../media/img/Profilbilde.png';
 import { useTranslation } from 'react-i18next';
 
@@ -30,88 +29,141 @@ const responsive = {
   },
 };
 
-const skills = [
-  {
-    name: 'JavaScript',
-    level: 90,
-    description: 'Been using JavaScript for 3 years throughout my education. I have used it in both front-end and back-end development.',
-  },
-  {
-    name: 'HTML/CSS',
-    level: 90,
-    description: 'Been using HTML and CSS throughout my education.',
-  },
-  {
-    name: 'React',
-    level: 70,
-    description: 'Fairly new to React, but have been using it in both front-end and back-end development.',
-  },
-  {
-    name: 'AI/Prompt Engineering',
-    level: 90,
-    description: 'Been using AI like ChatGPT since it came out to teach myself new skills, especially for programming. ',
-  },
-  {
-    name: 'Unity',
-    level: 90,
-    description: 'Been using Unity for about a year to develop games. I have used it in both 2D and 3D development.',
-  },
-
-  // add more skills as needed
-];
-
-const SkillBar = styled('div')(({ theme, level }) => ({
+/* const SkillBarTheme = styled('div')(({ theme, level }) => ({
   width: '100%',
-  height: '14px',
+  height: '20px',
   position: 'relative',
-  overflow: 'hidden',
-  backgroundImage: `linear-gradient(45deg, ${theme.palette.primary.main} 25%, transparent 25%), linear-gradient(-45deg, ${theme.palette.primary.main} 25%, transparent 25%), linear-gradient(45deg, transparent 75%, ${theme.palette.primary.main} 75%), linear-gradient(-45deg, transparent 75%, ${theme.palette.primary.main} 75%)`,
-  backgroundSize: '10px 10px',
-  backgroundPosition: '0 0, 0 5px, 5px -5px, -5px 0px',
-  '&:before': {
+  backgroundColor: theme.palette.action.disabledBackground, // Add this line for default background
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    height: '10px',
+    width: '1px',
+    backgroundColor: theme.palette.primary.main,
+    left: '25%',
+  },
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    height: '10px',
+    width: '1px',
+    backgroundColor: theme.palette.primary.main,
+    left: '50%',
+  },
+  '& .line': {
+    position: 'absolute',
+    height: '150%',
+    width: '4px',
+    zIndex: 1,
+    backgroundColor: theme.palette.highlight.main,
+  },
+  '& .line:first-child': {
+    left: '25%',
+    top: '-5px',
+  },
+  '& .line:nth-child(2)': {
+    left: '50%',
+    top: '-5px',
+  },
+  '& .line:last-child': {
+    left: '75%',
+    top: '-5px',
+  },
+  '&::after': {
     content: '""',
     position: 'absolute',
     top: 0,
-    left: 0,
+    left: '0%',
     height: '100%',
-    width: `${level}%`,
-    backgroundColor: theme.palette.primary.main,
+    width: `${level * 25}%`,
+    backgroundColor: `hsl(${level * 60}, 100%, 50%)`,
     transition: 'width 1s ease-in-out',
+    zIndex: -1,
   },
 }));
 
-function SkillItem({ name, level, description }) {
-  const [open, setOpen] = useState(false);
+const SkillBarComponent = ({ level }) => (
+  <SkillBarTheme level={level}>
+    <div className="line" />
+    <div className="line" />
+    <div className="line" />
+  </SkillBarTheme>
+);
 
-  const handleClick = (event) => {
-    event.stopPropagation();
-    setOpen((prev) => !prev);
-  };
+function SkillItem({ name, level, icons }) {
+  const [openTooltipIndex, setOpenTooltipIndex] = useState(null);
+  const { t } = useTranslation();
 
   const handleClickAway = () => {
-    setOpen(false);
+    setOpenTooltipIndex(null);
   };
 
   return (
     <Box display="flex" flexDirection="column" alignItems="flex-start" mt={1}>
-      <Box display="flex" justifyContent="space-between" width="100%" alignItems="center">
-        <Typography variant="body1" component="span" style={{ marginRight: '8px' }}>
-          {name}
-        </Typography>
-        <ClickAwayListener onClickAway={handleClickAway}>
-          <Tooltip open={open} title={description} placement="top" arrow interactive>
-            <IconButton onClick={handleClick} size="medium" style={{ opacity: 0.7 }}>
-              <InfoOutlinedIcon fontSize="inherit" />
-            </IconButton>
-          </Tooltip>
-        </ClickAwayListener>
-      </Box>
-      <SkillBar level={level} />
-    </Box>
-  );
-}
+      <Box display="flex" justifyContent="flex-start" alignItems="center" width="100%" sx={{ paddingBottom: '10px' }}>
+        <Box display="flex" justifyContent="flex-start" width="100%">
+          <Typography variant="body1" component="span" sx={{ fontSize: 24, fontWeight: 'bold' }}>
+            {name}
+          </Typography>
+        </Box>
 
-function MainIndex({ projects }) {
+        <Box display="flex" alignItems="center">
+          {icons.map((icon, index) => (
+            <Box key={index} sx={{ position: 'relative' }}>
+              <img
+                src={icon}
+                alt={`${name} icon`}
+                onClick={() => setOpenTooltipIndex(index)}
+                style={{
+                  width: '50px',
+                  height: 'auto',
+                  marginRight: '8px',
+                  cursor: 'pointer',
+                }}
+              />
+
+              {openTooltipIndex === index && (
+                <ClickAwayListener onClickAway={handleClickAway}>
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      zIndex: 1,
+                    }}
+                  >
+                    <Tooltip
+                      open
+                      title={
+                        <Typography variant="body2" style={{ whiteSpace: 'pre-wrap' }}>
+                          {t(`SkillDescription.${name.split(' ')[index]}`)}
+                        </Typography>
+                      }
+                      placement="top"
+                      arrow
+                    >
+                      <IconButton size="medium" sx={{ opacity: 0 }}>
+                        <InfoOutlinedIcon fontSize="inherit" />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+                </ClickAwayListener>
+              )}
+            </Box>
+          ))}
+        </Box>
+      </Box>
+
+      <SkillBarComponent level={level} />
+    </Box>
+  );} */
+
+function MainIndex({ projects, skills }) {
   const isMobile = useMediaQuery('(max-width:1000px)');
   const { t } = useTranslation();
 
@@ -154,7 +206,7 @@ function MainIndex({ projects }) {
 
                 {/* Description */}
                 <Typography variant="body1" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', lineClamp: '2' }}>
-                  {project.description}
+                  {t(`Projects.ProjectDescription.${project.path}`)}
                 </Typography>
               </Box>
             </a>
@@ -168,12 +220,11 @@ function MainIndex({ projects }) {
 
       {/* Skills */}
       <Box my={5}>
-        <Typography variant="h5">Skills</Typography>
         <Grid container spacing={2}>
           {skills.map((skill) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={skill.name}>
               <Box border={1} borderColor="divider" borderRadius={1} p={2}>
-                <SkillItem {...skill} />
+                <SkillTemplate {...skill} />
               </Box>
             </Grid>
           ))}

@@ -1,11 +1,57 @@
 {
   "MainIndex": {
     "Title": "Hallo, mitt navn er André Lie",
-    "ShortIntro": "Dette er min porteføljenettside som er under aktiv utvikling mens jeg forbedrer min kunnskap innen webutvikling. Målet mitt er å lage en nettside som viser frem mine ferdigheter og prosjekter, og som fungerer som en plattform hvor jeg kan skape og dele mine ideer. Jeg er ikke veldig formell av meg, og jeg liker å holde ting enkelt. Utforsk gjerne nettsiden min, og hvis du har noen spørsmål, nøl ikke med å ta kontakt med meg."
+    "ShortIntro": "Dette er min porteføljenettside som er under aktiv utvikling mens jeg forbedrer min kunnskap innen webutvikling. Målet mitt er å lage en nettside som viser frem mine ferdigheter og prosjekter, og som fungerer som en plattform hvor jeg kan skape og dele mine ideer. Jeg er ikke veldig formell av meg, og jeg liker å holde ting enkelt. Utforsk gjerne nettsiden min, og hvis du har noen spørsmål, nøl ikke med å ta kontakt med meg.",
+    "SkillReadMore": "Klikk for mer"
   },
-  "navigation": {
+
+  "AboutMe": {
+    "AboutMe": {
+      "Title": "Om meg",
+      "Description": "Jeg heter André Lie og er en 31 år gammel webutvikler fra Norge. Jeg har en bachelorgrad i Multimedietechnology & Design fra Universitetet i Agder (UiA). Jeg leter for øyeblikket etter jobb som webutvikler eller en lignende stilling. Mens jeg studerte ved UiA, har jeg fokusert på programmering og webutvikling. Jeg har også jobbet med flere prosjekter, både alene og i grupper, der jeg har fått erfaring med prosjektledelse, samarbeid og kommunikasjon. Jeg har også tatt initiativ til å lære teknologier utenfor bachelorgraden, som C#, Unity og React. Jeg er en rask lærende person og alltid ivrig etter å lære nye ting. Jeg er også en veldig kreativ person, og jeg liker å jobbe med prosjekter der jeg kan bruke min kreativitet. Jeg er lidenskapelig opptatt av å skape interaktive opplevelser på nettet, og jeg er alltid på jakt etter nye utfordringer."
+    },
+    "MyInterests": {
+      "Title": "Mine Interesser",
+      "Description": "Jeg har alltid vært interessert i datamaskiner og teknologi, og fra ung alder har jeg vist interesse for å utforske og finne ut hvordan ting fungerer. Fra første gang jeg fikk tilgang til en datamaskin, har jeg vært fascinert av mulighetene den gir og hva den kan oppnå. Dessverre fikk jeg aldri sjansen til å utforske denne interessen videre, da jeg aldri ble introdusert for programmering på skolen og endte opp med å studere noe helt annet. Men fra øyeblikket jeg begynte å studere ved UiA, visste jeg at jeg ønsket å bli programmerer, da det er ingenting jeg liker mer enn å bryte ned større problemer og løse dem bit for bit. Jeg liker også å jobbe med prosjekter der jeg kan bruke min kreativitet, og jeg føler at programmering er den perfekte kombinasjonen av kreativitet og problemløsning."
+    },
+    "MyGoals": {
+      "Title": "Mine fremtidige mål",
+      "Description": "Hovedfokuset mitt er på webutvikling, men jeg er også interessert i spillutvikling. Jeg lærte meg C# og Unity på fritiden, og med kombinasjonen av ferdighetene jeg har lært fra bachelorgraden min og ferdighetene jeg har lært på egenhånd, har jeg den perfekte grunnlaget for å lage spill."
+    },
+    "ViewCV": "Vis CV",
+    "ViewTranscripts": "Vis vitnemål"
+  },
+
+  "Navigation": {
     "About": "Om meg",
     "Projects": "Prosjekter",
-    "Contact": "Kontakt"
+    "Contact": "Kontakt",
+    "DarkLightMode": {
+      "DarkMode": "Mørk Modus",
+      "LightMode": "Lys Modus"
+    }
+  },
+
+  "SkillDescription": {
+    "JavaScript": "Har brukt JavaScript i 3 år gjennom utdanningen min. Jeg har brukt det både i front-end og back-end utvikling.",
+    "HTML": "Har brukt HTML gjennom hele utdanningen min.",
+    "CSS": "Har brukt CSS-rammeverk som Bootstrap og Material-UI en stund.",
+    "React": "Ganske ny på React, men har brukt det både i front-end og back-end utvikling.",
+    "AI": "Har brukt AI som ChatGPT siden det ble lansert for å lære meg nye ferdigheter, spesielt innen programmering.",
+    "Prompt": "Jeg har også lært Prompt Engineering for å øke mitt AI-læringpotensial.",
+    "Unity": "Har brukt Unity i omtrent ett år for å utvikle spill. Jeg har brukt det både i 2D og 3D utvikling.",
+    "C#": "Har brukt C# i omtrent ett år ved å utvikle spill i Unity."
+  },
+  "Projects": {
+    "ProjectDescription": {
+      "project-medieval": "Dette er en kort beskrivelse av bacheloroppgaven min som jeg gjorde som heter Project Medieval. Det er et spill som er basert på middelalderen. Multiplayer ved hjelp av Unity og C#.",
+      "project-2": "Dette er en kort beskrivelse om prosjekt 2...",
+      "project-3": "Dette er en kort beskrivelse om prosjekt 3...",
+      "project-5": "Dette er en kort beskrivelse om prosjekt 5...",
+      "project-6": "Dette er en kort beskrivelse om prosjekt 6...",
+      "project-7": "Dette er en kort beskrivelse om prosjekt 7...",
+      "project-8": "Dette er en kort beskrivelse om prosjekt 8..."
+    },
+    "BackToProjects": "Tilbake til prosjekter"
   }
 }
