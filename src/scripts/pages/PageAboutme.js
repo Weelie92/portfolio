@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Button, Paper, Link, Grid, Icon } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import profileImage from '../media/img/Profilbilde.png';
+import profileImage from '../../media/img/Profilbilde.png';
 
 function AboutMe() {
   const { t } = useTranslation();

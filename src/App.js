@@ -2,15 +2,15 @@ import { React, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
-import ProjectTemplate from './components/templates/ProjectTemplate';
+import ProjectTemplate from './scripts/templates/ProjectTemplate';
 import './i18n/i18n';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import AboutMe from './components/AboutMe';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import MainIndex from './components/MainIndex';
-import useDarkMode from './components/hooks/useDarkMode';
+import Navbar from './scripts/components/CompNavbar';
+import Footer from './scripts/components/CompFooter';
+import AboutMe from './scripts/pages/PageAboutme';
+import Projects from './scripts/pages/PageProjects';
+import Contact from './scripts/pages/PageContact';
+import MainIndex from './scripts/pages/PageMainIndex';
+import useDarkMode from './scripts/hooks/useDarkMode';
 
 import Image1 from './media/img/ProjectTemp1-min.jpg';
 import Image2 from './media/img/ProjectTemp2-min.jpg';
@@ -111,44 +111,49 @@ const darkTheme = createTheme({
   },
 });
 
-const projects = [
-  {
-    image: Image1,
+const projects = {
+  'Project Medieval': {
     title: 'Project Medieval',
     path: 'project-medieval',
+    generalDescription: "Project Medieval is a game I'm currently working on.",
+    image: Image1,
+    updates: [
+      {
+        timestamp: 1689247285602,
+        version: '0.0.1',
+        title: 'Test update 1',
+        description: 'Test update 1',
+        changelog: 'Test update 1',
+        images: [Image1, Image2],
+      },
+      {
+        timestamp: 1689247185602,
+        version: '0.0.0',
+        title: 'Test update',
+        description: 'Test update',
+        changelog: 'Test update',
+        images: [Image1, Image2],
+      },
+    ],
   },
-  {
-    image: Image2,
+  'Project 2': {
     title: 'Project 2',
     path: 'project-2',
+    image: Image2,
+    updates: [
+      // Updates for Project 2
+    ],
   },
-  {
-    image: Image3,
+  'Project 3': {
     title: 'Project 3',
     path: 'project-3',
-  },
-  {
-    image: Image4,
-    title: 'Project 5',
-    path: 'project-5',
-  },
-  {
-    image: Image4,
-    title: 'Project 6',
-    path: 'project-6',
-  },
-  {
-    image: Image4,
-    title: 'Project 7',
-    path: 'project-7',
-  },
-  {
-    image: Image4,
-    title: 'Project 8',
-    path: 'project-8',
+    image: Image3,
+    updates: [
+      // Updates for Project 3
+    ],
   },
   // Add more projects as needed
-];
+};
 
 const skills = [
   {
@@ -200,11 +205,9 @@ function App() {
       const browserLanguage = navigator.language.split('-')[0];
       i18n.changeLanguage(browserLanguage);
     }
-  }, [i18n]);
-
-  useEffect(() => {
+    // Update local storage whenever the language changes
     localStorage.setItem('language', i18n.language);
-  }, [i18n.language]);
+  }, [i18n]);
 
   return (
     <ThemeProvider theme={theme}>

@@ -12,11 +12,8 @@ import {
   useMediaQuery,
   Box,
   Switch,
-  FormControlLabel,
   Typography,
   CssBaseline,
-  Button,
-  Avatar,
   Fade,
 } from '@mui/material';
 import { styled } from '@mui/system';
@@ -28,21 +25,21 @@ import { useTheme } from '@mui/material/styles';
 import Brightness3Icon from '@mui/icons-material/Brightness3';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
-const ThemeSwitch = styled(Switch)(({ theme }) => ({
+const ThemeSwitch = styled(Switch)(({ theme, isDarkMode }) => ({
   height: 34,
   width: 62,
   padding: 7,
-  marginLeft: 'auto', // Add this line
+  marginLeft: 'auto',
   '& .MuiSwitch-switchBase': {
     padding: 5,
     '& .MuiSwitch-icon': {
       '&:before': {
         content: '""',
         position: 'absolute',
-        left: 'calc(100% - 37px)', // Adjust the left position to align with the right side
+        left: 'calc(100% - 37px)',
         display: 'block',
         height: '100%',
-        backgroundColor: theme.palette.mode === 'dark' ? 'darkgrey' : 'yellow', // defines the color of the moon and sun
+        backgroundColor: theme.palette.mode === 'dark' ? 'darkgrey' : '#FDC93A',
       },
     },
     '&:hover .MuiSwitch-icon:before': {
@@ -58,7 +55,7 @@ const ThemeSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-track': {
     borderRadius: 26 / 2,
     width: 75,
-    backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#B53A2C',
+    backgroundColor: isDarkMode ? '#8796A5' : '#FDC93A',
     opacity: 1,
   },
 }));
@@ -145,7 +142,13 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
 
                   <Box display="flex" flexDirection="column" alignItems="center">
                     <Typography variant="body2">{isDarkMode ? t('Navigation.DarkLightMode.DarkMode') : t('Navigation.DarkLightMode.LightMode')}</Typography>
-                    <ThemeSwitch checked={!isDarkMode} onChange={toggleTheme} icon={<Brightness3Icon />} checkedIcon={<Brightness7Icon />} />
+                    <ThemeSwitch
+                      isDarkMode={isDarkMode}
+                      checked={!isDarkMode}
+                      onChange={toggleTheme}
+                      icon={<Brightness3Icon />}
+                      checkedIcon={<Brightness7Icon />}
+                    />
                   </Box>
 
                   <Box display="flex" mt={2}>
