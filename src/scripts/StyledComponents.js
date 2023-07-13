@@ -21,7 +21,7 @@ export const SkillBarTheme = styled('div')(({ theme, level }) => ({
     height: '150%',
     width: '4px',
     zIndex: 1,
-    backgroundColor: theme.palette.highlight.main,
+    backgroundColor: theme.palette.background.default,
   },
   '& .line:first-of-type': {
     left: '20%',

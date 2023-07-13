@@ -19,6 +19,11 @@ function ProjectTemplate({ projects }) {
   const { t } = useTranslation();
 
   const [enlargedImg, setEnlargedImg] = useState(null);
+  const [expandedPanel, setExpandedPanel] = useState(null);
+
+  const handleAccordionChange = (panel) => (event, isExpanded) => {
+    setExpandedPanel(isExpanded ? panel : null);
+  };
 
   const handleImageClick = (img) => {
     setEnlargedImg(img);
@@ -61,7 +66,7 @@ function ProjectTemplate({ projects }) {
           Updates
         </Typography>
         {updates.map((update, index) => (
-          <Accordion key={index}>
+          <Accordion key={index} expanded={expandedPanel === index} onChange={handleAccordionChange(index)}>
             {/* Date and Time */}
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index}-content`} id={`panel${index}-header`}>
               <Typography>{`${new Date(update.timestamp).toLocaleString('en-GB', {
@@ -73,15 +78,21 @@ function ProjectTemplate({ projects }) {
               })} - v${update.version} - ${update.title}`}</Typography>
             </AccordionSummary>
 
+            {/* Accordion Details */}
             <AccordionDetails>
+              {/* Description */}
               <Box mt={2}>
                 <Typography variant="body2">Description:</Typography>
                 <Typography variant="body2">{update.description}</Typography>
               </Box>
+
+              {/* Changelog */}
               <Box mt={2}>
                 <Typography variant="body2">Changelog:</Typography>
                 <Typography variant="body2">{update.changelog}</Typography>
               </Box>
+
+              {/* Images */}
               <Grid container spacing={2}>
                 {update.images.map((img, idx) => (
                   <Grid item key={idx} xs={6} sm={4} md={3}>
@@ -114,6 +125,7 @@ function ProjectTemplate({ projects }) {
               </Grid>
             </AccordionDetails>
 
+            {/* Enlarged Image Dialog */}
             <Dialog open={!!enlargedImg} onClose={handleDialogClose}>
               <DialogContent>
                 <EnlargedImage src={enlargedImg} alt="Enlarged Image" />

@@ -27,7 +27,38 @@ import CSharpIcon from './media/img/CSharp.png';
 
 /* Icons downloaded from https://www.flaticon.com/ */
 
-const lightTheme = createTheme({
+const baseTheme = {
+  typography: {
+    fontFamily: 'Arial, sans-serif',
+    h1: {
+      fontSize: '2.5rem',
+      fontWeight: 500,
+    },
+    body1: {
+      fontSize: '1rem',
+      fontWeight: 400,
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          margin: '1em 0',
+        },
+      },
+    },
+  },
+};
+
+export const lightTheme = createTheme({
+  ...baseTheme,
   palette: {
     mode: 'light',
     primary: {
@@ -36,40 +67,19 @@ const lightTheme = createTheme({
     secondary: {
       main: '#dc004e',
     },
-    highlight: {
-      main: '#333333',
+    background: {
+      default: '#f0f0f0',
+      switch: '#fff',
     },
-  },
-  typography: {
-    fontFamily: 'Arial, sans-serif',
-    h1: {
-      fontSize: '2.5rem',
-      fontWeight: 500,
-    },
-    body1: {
-      fontSize: '1rem',
-      fontWeight: 400,
-    },
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-        },
-      },
-    },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#fff',
-        },
-      },
+    text: {
+      primary: '#000',
+      secondary: '#555',
     },
   },
 });
 
-const darkTheme = createTheme({
+export const darkTheme = createTheme({
+  ...baseTheme,
   palette: {
     mode: 'dark',
     primary: {
@@ -78,35 +88,13 @@ const darkTheme = createTheme({
     secondary: {
       main: '#f48fb1',
     },
-    highlight: {
-      main: '#ffffff',
+    background: {
+      default: '#303030',
+      switch: '#fff',
     },
-  },
-  typography: {
-    fontFamily: 'Arial, sans-serif',
-    h1: {
-      fontSize: '2.5rem',
-      fontWeight: 500,
-    },
-    body1: {
-      fontSize: '1rem',
-      fontWeight: 400,
-    },
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-        },
-      },
-    },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#333',
-        },
-      },
+    text: {
+      primary: '#fff',
+      secondary: '#ccc',
     },
   },
 });
