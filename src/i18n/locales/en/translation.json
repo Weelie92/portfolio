@@ -1,7 +1,7 @@
 {
   "MainIndex": {
     "Title": "Hello, I'm André Lie.",
-    "ShortIntro": "This is my portfolio website, which is under active development as i improve my knowledge related to web developing. My goal is to create a websitethat showcases my skills and projects, and a platform where I can create and share my ideas. I'm not a very formal person, and i like to keep thingssimple. Feel free to explore my website, and if you have any questions, don't hesitate to contact me."
+    "ShortIntro": "This is my portfolio website, which is under active development as i improve my knowledge related to web developing. My goal is to create a websitethat showcases my skills and projects, and a platform where I can create and share my ideas. I'm not a very formal person, and i like to keep things simple. Feel free to explore my website, and if you have any questions, don't hesitate to contact me."
   },
   "Navigation": {
     "About": "About",
@@ -14,8 +14,8 @@
   },
   "SkillDescription": {
     "JavaScript": "Been using JavaScript for 3 years throughout my education. I have used it in both front-end and back-end development.",
-    "HTML": "Been using HTML throughout my education.",
-    "CSS": "Been using CSS frameworks like Bootstrap and Material-UI for a while.",
+    "HTML": "Been using HTML to build websites throughout my education.",
+    "CSS": "Been teaching myself CSS frameworks like Bootstrap and Material-UI for a while.",
     "React": "Fairly new to React, but have been using it in both front-end and back-end development.",
     "AI": "Been using AI like ChatGPT since it came out to teach myself new skills, especially for programming.",
     "Prompt": "I've also been learning Prompt Engineering to increase my AI learning potential.",
@@ -23,15 +23,18 @@
     "C#": "Been using C# for about a year to develop games through Unity."
   },
   "Projects": {
-    "ProjectDescription": {
-      "project-medieval": "This is a short description of my bachelor that I did called Project Medieval. It is a game that is based on the medieval times. Multiplayer using Unity and C#.",
-      "project-2": "This is a brief description about Project 2...",
-      "project-3": "This is a brief description about Project 3...",
-      "project-5": "This is a brief description about Project 5...",
-      "project-6": "This is a brief description about Project 6...",
-      "project-7": "This is a brief description about Project 7...",
-      "project-8": "This is a brief description about Project 8..."
+    "project-medieval": {
+      "ShortDescription": "This is a short description of my bachelor that I did called Project Medieval. It is a game that is based on the medieval times. Multiplayer using Unity and C#.",
+      "LongDescription": "This is a long description of my bachelor that I did called Project Medieval. It is a game that is based on the medieval times. Multiplayer using Unity and C#."
     },
+
+    "portfolio": {
+      "ShortDescription": "This is a short description of this portfolio website project. It is developed using React and Material-UI.",
+      "LongDescription": "This is a long description of this portfolio website project. It is developed using React and Material-UI."
+    },
+
+    "SeeMyProjects": "See my projects",
+    "Updates": "Updates",
     "BackToProjects": "Back to projects"
   },
 

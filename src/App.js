@@ -12,6 +12,8 @@ import Contact from './scripts/pages/PageContact';
 import MainIndex from './scripts/pages/PageMainIndex';
 import useDarkMode from './scripts/hooks/useDarkMode';
 
+import pm_img_1 from './media/Projects/ProjectMedieval/pm_1.jpg';
+import pm_img_2 from './media/Projects/ProjectMedieval/pm_2.jpg';
 import Image1 from './media/img/ProjectTemp1-min.jpg';
 import Image2 from './media/img/ProjectTemp2-min.jpg';
 import Image3 from './media/img/ProjectTemp3-min.jpg';
@@ -103,8 +105,7 @@ const projects = {
   'Project Medieval': {
     title: 'Project Medieval',
     path: 'project-medieval',
-    generalDescription: "Project Medieval is a game I'm currently working on.",
-    image: Image1,
+    image: [pm_img_1, pm_img_2, Image1, Image2, Image3, Image4],
     updates: [
       {
         timestamp: 1689247285602,
@@ -112,7 +113,7 @@ const projects = {
         title: 'Test update 1',
         description: 'Test update 1',
         changelog: 'Test update 1',
-        images: [Image1, Image2],
+        images: [pm_img_1, pm_img_2],
       },
       {
         timestamp: 1689247185602,
@@ -124,10 +125,10 @@ const projects = {
       },
     ],
   },
-  'Project 2': {
-    title: 'Project 2',
-    path: 'project-2',
-    image: Image2,
+  Portfolio: {
+    title: 'My Portfolio',
+    path: 'portfolio',
+    image: [Image2],
     updates: [
       // Updates for Project 2
     ],
@@ -135,7 +136,7 @@ const projects = {
   'Project 3': {
     title: 'Project 3',
     path: 'project-3',
-    image: Image3,
+    image: [Image3],
     updates: [
       // Updates for Project 3
     ],
@@ -187,6 +188,7 @@ function App() {
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem('language');
+
     if (storedLanguage) {
       i18n.changeLanguage(storedLanguage);
     } else {

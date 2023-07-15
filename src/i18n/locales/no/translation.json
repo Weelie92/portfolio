@@ -34,8 +34,8 @@
 
   "SkillDescription": {
     "JavaScript": "Har brukt JavaScript i 3 år gjennom utdanningen min. Jeg har brukt det både i front-end og back-end utvikling.",
-    "HTML": "Har brukt HTML gjennom hele utdanningen min.",
-    "CSS": "Har brukt CSS-rammeverk som Bootstrap og Material-UI en stund.",
+    "HTML": "Har brukt HTML til å utvikle nettsider under utdanningen.",
+    "CSS": "Har drevet selvlæring CSS-rammeverk som Bootstrap og Material-UI en stund.",
     "React": "Ganske ny på React, men har brukt det både i front-end og back-end utvikling.",
     "AI": "Har brukt AI som ChatGPT siden det ble lansert for å lære meg nye ferdigheter, spesielt innen programmering.",
     "Prompt": "Jeg har også lært Prompt Engineering for å øke mitt AI-læringpotensial.",
@@ -43,15 +43,18 @@
     "C#": "Har brukt C# i omtrent ett år ved å utvikle spill i Unity."
   },
   "Projects": {
-    "ProjectDescription": {
-      "project-medieval": "Dette er en kort beskrivelse av bacheloroppgaven min som jeg gjorde som heter Project Medieval. Det er et spill som er basert på middelalderen. Multiplayer ved hjelp av Unity og C#.",
-      "project-2": "Dette er en kort beskrivelse om prosjekt 2...",
-      "project-3": "Dette er en kort beskrivelse om prosjekt 3...",
-      "project-5": "Dette er en kort beskrivelse om prosjekt 5...",
-      "project-6": "Dette er en kort beskrivelse om prosjekt 6...",
-      "project-7": "Dette er en kort beskrivelse om prosjekt 7...",
-      "project-8": "Dette er en kort beskrivelse om prosjekt 8..."
+    "project-medieval": {
+      "ShortDescription": "Dette er en kort beskrivelse av bacheloroppgaven min som jeg gjorde som heter Project Medieval. Det er et spill som er basert på middelalderen. Multiplayer ved hjelp av Unity og C#.",
+      "LongDescription": "Dette er en lang beskrivelse av bacheloroppgaven min som jeg gjorde som heter Project Medieval. Det er et spill som er basert på middelalderen. Multiplayer ved hjelp av Unity og C#."
     },
+
+    "portfolio": {
+      "ShortDescription": "Dette er en kort beskrivelse av dette nettside prosjektet. Den er utviklet ved hjelp av React og Material-UI.",
+      "LongDescription": "Dette er en lang beskrivelse av dette nettside prosjektet. Den er utviklet ved hjelp av React og Material-UI."
+    },
+
+    "SeeMyProjects": "Se mine prosjekter",
+    "Updates": "Oppdateringer",
     "BackToProjects": "Tilbake til prosjekter"
   }
 }

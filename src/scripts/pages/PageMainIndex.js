@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Button, Grid } from '@mui/material';
 import Carousel from 'react-multi-carousel';
 import SkillTemplate from '../templates/SkillTemplate';
@@ -11,20 +11,20 @@ import { useTranslation } from 'react-i18next';
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 1800 },
-    items: 6,
+    items: 4,
   },
   desktop: {
     breakpoint: { max: 1799, min: 1200 },
     centerMode: true,
-    items: 5,
+    items: 4,
   },
   tablet: {
-    breakpoint: { max: 1199, min: 465 },
+    breakpoint: { max: 1199, min: 550 },
     centerMode: true,
     items: 3,
   },
   mobile: {
-    breakpoint: { max: 464, min: 0 },
+    breakpoint: { max: 549, min: 0 },
     items: 1,
   },
 };
@@ -32,16 +32,29 @@ const responsive = {
 function MainIndex({ projects, skills }) {
   const isMobile = useMediaQuery('(max-width:1000px)');
   const { t } = useTranslation();
+  const [firstTimeUser, setFirstTimeUser] = useState(true);
+
+  useEffect(() => {
+    if (localStorage.getItem('firstTimeUser') === 'false') {
+      setFirstTimeUser(false);
+    }
+  }, []);
+
+  // add this function
+  const handleFirstTimeUserInteraction = () => {
+    localStorage.setItem('firstTimeUser', 'false');
+    setFirstTimeUser(false);
+  };
 
   return (
     <Box px={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
       {/* Introduction */}
-      <Box mt={5} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '24px', maxWidth: '600px', textAlign: 'center' }}>
+      <Box mt={1} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '24px', maxWidth: '600px', textAlign: 'center' }}>
         <Typography variant="h4">{t('MainIndex.Title')}</Typography>
-        <Box sx={{ width: '300px', overflow: 'hidden' }}>
+        <Box mt={2} sx={{ width: '300px', overflow: 'hidden' }}>
           <img src={profileImage} alt="Profile" style={{ borderRadius: '20%', width: '100%', objectFit: 'cover', transform: 'scale(1.2)' }} />
         </Box>
-        <Typography variant="body1" paragraph>
+        <Typography mt={2} variant="body1" paragraph>
           {t('MainIndex.ShortIntro')}
         </Typography>
       </Box>
@@ -67,12 +80,12 @@ function MainIndex({ projects, skills }) {
                     justifyContent: 'center',
                   }}
                 >
-                  <img src={project.image} alt={project.title} sx={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'cover' }} />
+                  <img src={project.image[0]} alt={project.title} sx={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'cover' }} />
                 </Box>
 
                 {/* Description */}
                 <Typography variant="body1" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', lineClamp: '2' }}>
-                  {t(`Projects.ProjectDescription.${project.path}`)}
+                  {t(`Projects.${project.path}.ShortDescription`)}
                 </Typography>
               </Box>
             </a>
@@ -81,16 +94,20 @@ function MainIndex({ projects, skills }) {
       </Box>
 
       <Button variant="outlined" href="/projects">
-        See My Projects
+        {t('Projects.SeeMyProjects')}
       </Button>
 
       {/* Skills */}
       <Box my={5}>
         <Grid container spacing={2}>
-          {skills.map((skill) => (
+          {skills.map((skill, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={skill.name}>
               <Box border={1} borderColor="divider" borderRadius={1} p={2}>
-                <SkillTemplate {...skill} />
+                <SkillTemplate
+                  {...skill}
+                  firstTimeUser={index === 0 && firstTimeUser} // pass prop to SkillTemplate
+                  onUserInteraction={handleFirstTimeUserInteraction} // pass prop to SkillTemplate
+                />
               </Box>
             </Grid>
           ))}

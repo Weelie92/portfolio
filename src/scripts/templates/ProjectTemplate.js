@@ -43,27 +43,58 @@ function ProjectTemplate({ projects }) {
     return <Typography variant="h6">{t('Project not found')}</Typography>;
   }
 
-  const { title, generalDescription, image, updates } = project;
+  const { title, updates } = project;
 
   return (
     <StyledBox p={2}>
       {/* Project Title */}
-      <Typography variant="h4" align="center" gutterBottom>
-        {title}
-      </Typography>
+      <Box textAlign="center">
+        {/* Title */}
+        <Box textAlign="center" mt={2}>
+          <Typography variant="h4" align="center" gutterBottom>
+            {title}
+          </Typography>
+        </Box>
 
-      {/* General Description */}
-      <Typography variant="body1" gutterBottom>
-        {generalDescription}
-      </Typography>
+        {/* Primary Image */}
+        <Box textAlign="center" mt={2}>
+          <StyledImage src={project.image[0]} alt={project.title} sx={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'cover' }} />
+        </Box>
 
-      {/* Project Image */}
-      <StyledImage src={image} alt={title} />
+        {/* General Description */}
+        <Box mt={4}>
+          <Typography variant="body1" gutterBottom>
+            {t(`Projects.${projectId}.LongDescription`)}
+          </Typography>
+        </Box>
+
+        {/* Project Images */}
+        <Box mt={2} sx={{ backgroundColor: '#f8f9fa' }}>
+          {' '}
+          {/* replace with your desired background color */}
+          <Grid container spacing={2} justifyContent="center">
+            {Array.isArray(project.image) &&
+              project.image.length > 1 &&
+              project.image.slice(1).map((image, index) => (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <StyledImage
+                      onClick={() => handleImageClick(image)}
+                      src={image}
+                      alt={project.title}
+                      sx={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'cover', cursor: 'pointer' }}
+                    />
+                  </Box>
+                </Grid>
+              ))}
+          </Grid>
+        </Box>
+      </Box>
 
       {/* Updates Section */}
       <Box mt={4}>
         <Typography variant="h6" align="center" gutterBottom>
-          Updates
+          {t('Projects.Updates')}
         </Typography>
         {updates.map((update, index) => (
           <Accordion key={index} expanded={expandedPanel === index} onChange={handleAccordionChange(index)}>

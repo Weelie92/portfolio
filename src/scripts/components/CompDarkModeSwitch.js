@@ -54,11 +54,9 @@ const ThemeSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const CompDarkModeSwitch = ({ isDarkMode, toggleTheme }) => {
-  const { t } = useTranslation();
-
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <ThemeSwitch defaultChecked color="default" checked={!isDarkMode} onChange={toggleTheme} />
+    <Box>
+      <ThemeSwitch color="default" checked={isDarkMode} onChange={toggleTheme} />
     </Box>
   );
 };

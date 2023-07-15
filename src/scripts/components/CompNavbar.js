@@ -51,11 +51,6 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScroll]);
 
-  // Function to change language
-  const changeLanguage = (event) => {
-    i18n.changeLanguage(event.target.checked ? 'no' : 'en');
-  };
-
   // In your JSX
 
   return (
@@ -63,60 +58,66 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
       <CssBaseline />
       <Slide appear={false} direction="down" in={scrollingUp || lastScroll === 0}>
         <AppBar position="sticky">
-          <Toolbar>
-            <Drawer anchor="right" open={openDrawer} onClose={() => setOpenDrawer(false)}>
-              <Box
-                sx={{
-                  width: 200,
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  py: 2,
-                  px: 3,
-                  bgcolor: theme.palette.background.default,
-                  color: theme.palette.text.primary,
-                }}
-              >
-                <Fade in={openDrawer}>
-                  <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-                    <IconButton edge="end" color="inherit" href="/">
-                      <HomeIcon style={{ fontSize: '4rem' }} />
-                    </IconButton>{' '}
+          {isMobile ? (
+            <Toolbar>
+              <IconButton edge="start" color="inherit" onClick={() => setOpenDrawer(!openDrawer)} style={{ marginLeft: 'auto' }}>
+                <MenuIcon />
+              </IconButton>
+
+              <Drawer anchor="right" open={openDrawer} onClose={() => setOpenDrawer(false)}>
+                <Box
+                  sx={{
+                    width: 200,
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    py: 2,
+                    px: 3,
+                    bgcolor: theme.palette.background.default,
+                    color: theme.palette.text.primary,
+                  }}
+                >
+                  <Fade in={openDrawer}>
+                    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                      <IconButton edge="end" color="inherit" href="/">
+                        <HomeIcon style={{ fontSize: '4rem' }} />
+                      </IconButton>
+                    </Box>
+                  </Fade>
+
+                  <Box style={{ marginBottom: 'auto' }}>
+                    <List>
+                      {menuItems.map((item, index) => (
+                        <Fade in={openDrawer} timeout={500 + index * 100} key={item.label}>
+                          <ListItem button component={Link} to={item.path}>
+                            <ListItemText primaryTypographyProps={{ variant: 'h5' }} primary={item.label} />
+                          </ListItem>
+                        </Fade>
+                      ))}
+                    </List>
                   </Box>
-                </Fade>
 
-                <Box style={{ marginBottom: 'auto' }}>
-                  <List>
-                    {menuItems.map((item, index) => (
-                      <Fade in={openDrawer} timeout={500 + index * 100} key={item.label}>
-                        <ListItem button component={Link} to={item.path}>
-                          <ListItemText primaryTypographyProps={{ variant: 'h5' }} primary={item.label} />
-                        </ListItem>
-                      </Fade>
-                    ))}
-                  </List>
-                </Box>
+                  <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
+                    <CompLanguageSwitch />
 
-                <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
-                  <CompLanguageSwitch />
+                    <CompDarkModeSwitch isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
 
-                  <CompDarkModeSwitch isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-
-                  <Box display="flex" mt={2}>
-                    <IconButton href="https://www.linkedin.com/in/andrelie" target="_blank" style={{ marginRight: '10px' }}>
-                      <LinkedInIcon />
-                    </IconButton>
-                    <IconButton href="https://github.com/Weelie92" target="_blank">
-                      <GitHubIcon />
-                    </IconButton>
+                    <Box display="flex" mt={2}>
+                      <IconButton href="https://www.linkedin.com/in/andrelie" target="_blank" style={{ marginRight: '10px' }}>
+                        <LinkedInIcon />
+                      </IconButton>
+                      <IconButton href="https://github.com/Weelie92" target="_blank">
+                        <GitHubIcon />
+                      </IconButton>
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-            </Drawer>
-
-            {!isMobile && (
+              </Drawer>
+            </Toolbar>
+          ) : (
+            <Toolbar>
               <Box display="flex" gap={2}>
                 {menuItems.map((item) => (
                   <Box key={item.label} sx={{ textDecoration: 'none' }}>
@@ -126,31 +127,17 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
                   </Box>
                 ))}
               </Box>
-            )}
-            <Box flexGrow={1} />
+              <Box flexGrow={1} />
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <CompLanguageSwitch />
 
-            {isMobile ? (
-              <IconButton edge="end" color="inherit" onClick={() => setOpenDrawer(!openDrawer)}>
-                <MenuIcon />
-              </IconButton>
-            ) : (
-              <Box display="flex" flexDirection="row">
-                {/* Language Switch */}
-                <Box display="flex" flexDirection="row" alignItems="center">
-                  <Typography variant="body2">{i18n.language === 'no' ? '🇳🇴' : '🇬🇧'}</Typography>
-                  <Switch checked={i18n.language === 'no'} onChange={changeLanguage} name="languageSwitch" />
-                </Box>
-
-                {/* Theme Switch */}
                 <CompDarkModeSwitch isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-
-                {/* Home button */}
-                <Box component={IconButton} edge="end" color="inherit" href="/">
+                <IconButton edge="end" color="inherit" href="/" style={{ fontSize: 30 }}>
                   <HomeIcon />
-                </Box>
+                </IconButton>
               </Box>
-            )}
-          </Toolbar>
+            </Toolbar>
+          )}
         </AppBar>
       </Slide>
     </>

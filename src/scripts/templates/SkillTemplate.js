@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Box, Typography, Tooltip, IconButton, ClickAwayListener } from '@mui/material';
 import { styled } from '@mui/system';
 import { useTranslation } from 'react-i18next';
@@ -57,9 +57,21 @@ function SkillIconTooltip({ icon, name, index, open, handleClickAway, setOpenToo
   );
 }
 
-function SkillTemplate({ name, level, icons }) {
+const SkillTemplate = ({ name, level, icons, firstTimeUser, onUserInteraction }) => {
   const [openTooltipIndex, setOpenTooltipIndex] = useState(null);
-  const handleClickAway = useCallback(() => setOpenTooltipIndex(null), []);
+
+  useEffect(() => {
+    if (firstTimeUser) {
+      setOpenTooltipIndex(0); // automatically open the first tooltip if it's the first user
+    }
+  }, [firstTimeUser]);
+
+  const handleClickAway = useCallback(() => {
+    setOpenTooltipIndex(null);
+    if (firstTimeUser) {
+      onUserInteraction();
+    }
+  }, [onUserInteraction, firstTimeUser]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="flex-start" mt={1}>
@@ -82,6 +94,7 @@ function SkillTemplate({ name, level, icons }) {
               open={openTooltipIndex === index}
               handleClickAway={handleClickAway}
               setOpenTooltipIndex={setOpenTooltipIndex}
+              style={{ cursor: 'pointer' }}
             />
           ))}
         </Box>
@@ -95,6 +108,6 @@ function SkillTemplate({ name, level, icons }) {
       </SkillBarTheme>
     </Box>
   );
-}
+};
 
 export default SkillTemplate;
